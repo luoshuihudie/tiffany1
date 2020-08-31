@@ -83,4 +83,38 @@ class BaseController extends Controller
         ];
 
     }
+
+    /**
+     * ajax请求成功返回
+     *
+     * @param array $data //响应数据
+     * @param int $code   //响应状态码
+     * @param string $msg //响应信息
+     * @return array
+     */
+    public function ajaxSuccess($data = [], $code = 0, $msg = 'Success')
+    {
+        return [
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        ];
+    }
+
+    /**
+     * ajax请求失败返回
+     *
+     * @param $code
+     * @param string $msg
+     * @param array $data
+     * @return array
+     */
+    public function ajaxError($code, $msg = 'Error', $data = [])
+    {
+        return [
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        ];
+    }
 }

@@ -19,15 +19,15 @@ class CreateAdminRoleTable extends Migration
 
             //表的字段
             $table->unsignedInteger('id')->autoIncrement();
-            $table->string('name', 50)->collation('utf8mb4_unicode_ci')->default('')->comment('名称');
-            $table->string('description', 100)->collation('utf8mb4_unicode_ci')->default('')->comment('简介');
-            $table->string('url', 1000)->collation('utf8mb4_unicode_ci')->default('')->comment('权限');
+            $table->string('name', 50)->collation('utf8mb4_general_ci')->default('')->comment('名称');
+            $table->string('description', 100)->collation('utf8mb4_general_ci')->default('')->comment('简介');
+            $table->string('url', 1000)->collation('utf8mb4_general_ci')->default('')->comment('权限');
             $table->tinyInteger('status')->default('1')->comment('是否启用');
 
             //表的属性
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
-            $table->collation = 'utf8mb4_unicode_ci';
+            $table->collation = 'utf8mb4_general_ci';
 
             //表注释
             $table->comment = '后台角色';

@@ -104,6 +104,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => ['admi
     Route::post('setting/update',"SettingController@update")->name('admin.setting.update');
     //设置中心-后台设置
     Route::get('setting/admin',"SettingController@admin")->name('admin.setting.admin');
+    //设置中心-修改配置
+    Route::get('setting/info/{id}',"SettingController@info")->name('admin.setting.info');
+    //设置中心-更新配置
+    Route::post('setting/update',"SettingController@update")->name('admin.setting.update');
+    //设置中心-后台设置
+    Route::get('setting/website',"SettingController@website")->name('admin.setting.website');
+
 
     //开发管理-设置分组管理
     Route::get('setting_group/index',"SettingGroupController@index")->name('admin.setting_group.index');
@@ -171,4 +178,20 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => ['admi
 
     //UEditor控制器
     Route::match(['get', 'post'], 'editor/server',"EditorController@server")->name('admin.editor.server');
+
+    //网站配置管理
+    Route::get('links/index',"LinksController@index")->name('admin.links.index');
+    Route::get('links/lists',"LinksController@lists")->name('admin.links.lists');
+    //添加菜单-界面
+    Route::get('links/add',"LinksController@add")->name('admin.links.add');
+    //添加菜单操作
+    Route::post('links/create',"LinksController@create")->name('admin.links.create');
+    //修改菜单-界面
+    Route::get('links/edit/{id}',"LinksController@edit")->name('admin.links.edit');
+    //修改菜单
+    Route::post('links/update',"LinksController@update")->name('admin.links.update');
+    //删除菜单
+    Route::post('links/del',"LinksController@del")->name('admin.links.del');
+
+
 });
