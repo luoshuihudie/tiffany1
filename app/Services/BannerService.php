@@ -10,13 +10,13 @@
 namespace App\Services;
 
 use App\Http\Model\Common\Attachment;
-use App\Repositories\Admin\Contracts\LinksInterface;
+use App\Repositories\Admin\Contracts\BannerInterface;
 use App\Traits\Admin\AdminTree;
 use App\Traits\Admin\SearchHandle;
 use App\Validate\Admin\AdminMenuValidate;
 use Illuminate\Http\Request;
 
-class LinksService extends AdminBaseService
+class BannerService extends AdminBaseService
 {
     use AdminTree, SearchHandle;
 
@@ -31,26 +31,26 @@ class LinksService extends AdminBaseService
     protected $validate;
 
     /**
-     * @var LinksInterface 菜单仓库
+     * @var BannerInterface 菜单仓库
      */
-    protected $links;
+    protected $banner;
 
     /**
      * AdminMenuService 构造函数.
      *
      * @param Request $request
      * @param AdminMenuValidate $validate
-     * @param LinksInterface $links
+     * @param BannerInterface $banner
      */
     public function __construct(
         Request $request ,
         AdminMenuValidate $validate ,
-        LinksInterface $links
+        BannerInterface $banner
     )
     {
         $this->request   = $request;
         $this->validate  = $validate;
-        $this->links = $links;
+        $this->banner = $banner;
     }
 
     /**
@@ -63,7 +63,7 @@ class LinksService extends AdminBaseService
     public function getPageData()
     {
         $param = $this->request->input();
-        $data  = $this->links->getPageData($param,$this->perPage());
+        $data  = $this->banner->getPageData($param,$this->perPage());
 
         return array_merge(['data'  => $data],$this->request->query());
     }
@@ -78,7 +78,7 @@ class LinksService extends AdminBaseService
     public function getListsData()
     {
         $param = $this->request->input();
-        $query = $this->links->query();
+        $query = $this->banner->query();
         $query = $this->search($query, $param, $this->getSearchHandles());
         $sort_by = 'create_time';
         $sort = 'desc';
@@ -128,7 +128,7 @@ class LinksService extends AdminBaseService
      */
     public function findById($id)
     {
-        return $this->links->findById($id);
+        return $this->banner->findById($id);
     }
 
     /**
@@ -166,7 +166,7 @@ class LinksService extends AdminBaseService
         if ($file) {
             $param['img'] = $file->url;
         }
-        $result = $this->links->create($param);
+        $result = $this->banner->create($param);
 
         return $result ? success('添加成功') : error();
     }
@@ -181,7 +181,7 @@ class LinksService extends AdminBaseService
      */
     public function edit($id)
     {
-        $data      = $this->links->find($id);
+        $data      = $this->banner->find($id);
 
         $parent_id = $data->parent_id;
 
@@ -210,7 +210,7 @@ class LinksService extends AdminBaseService
         $param           = $this->request->input();
         $id = $param['id'];
 
-        $links = $this->links->findById($id);
+        $links = $this->banner->findById($id);
 
         if ($file) {
             $param['img'] = $file->url;
@@ -232,7 +232,7 @@ class LinksService extends AdminBaseService
         $id = $this->request->input('id');
         is_string($id) && $id = [$id];
 
-        $count = $this->links->destroy($id);
+        $count = $this->banner->destroy($id);
 
         return $count > 0 ? success('操作成功', URL_RELOAD) : error();
     }

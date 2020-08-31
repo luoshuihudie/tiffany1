@@ -10,11 +10,11 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-                    <form class="form-inline searchForm" id="searchForm" action="{{route('admin.setting.all')}}" method="GET">
+                    <form class="form-inline searchForm" id="searchForm" action="{{route('admin.banner.index')}}" method="GET">
 
                         <div class="form-group">
                             <input value="{{isset($_keywords) ? $_keywords : ''}}"
-                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="名称/描述/代码">
+                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="名称/描述">
                         </div>
 
 
@@ -41,6 +41,15 @@
                 <!--数据列表顶部-->
                 <div class="box-header">
                     <div>
+                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{{route('admin.banner.add')}}">
+                            <i class="fa fa-plus"></i> 添加
+                        </a>
+                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
+                           data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked"
+                           data-url="{{route('admin.banner.del')}}">
+                            <i class="fa fa-trash"></i> 删除
+                        </a>
+
                         <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新">
                             <i class="fa fa-refresh"></i> 刷新
                         </a>
@@ -51,12 +60,15 @@
                     <table class="table table-hover table-bordered datatable" width="100%">
                         <thead>
                         <tr>
-
+                            <th>
+                                <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox"
+                                       placeholder="全选/取消">
+                            </th>
                             <th>ID</th>
                             <th>名称</th>
+                            <th>链接</th>
+                            <th>缩略图</th>
                             <th>描述</th>
-                            <th>作用模块</th>
-                            <th>代码</th>
                             <th>排序</th>
                             <th>创建时间</th>
                             <th>更新时间</th>
@@ -67,20 +79,31 @@
                         <tbody>
                         @foreach($data as $item)
                         <tr>
-
+                            <td>
+                                <input type="checkbox" onclick="checkThis(this)" name="data-checkbox"
+                                       data-id="{{$item['id']}}" class="checkbox data-list-check" value="{{$item['id']}}"
+                                       placeholder="选择/取消">
+                            </td>
                             <td>{{$item['id']}}</td>
-                            <td>{{$item['name']}}</td>
-                            <td>{{$item['description']}}</td>
-                            <td>{{$item['module']}}</td>
-                            <td>{{$item['code']}}</td>
-                            <td>{{$item['sort_number']}}</td>
+                            <td>{{$item['title']}}</td>
+                            <td>{{$item['url']}}</td>
+                            <td>{{$item['img']}}</td>
+                            <td>{{$item['desc']}}</td>
+                            <td>{{$item['sort']}}</td>
                             <td>{{$item['create_time']}}</td>
                             <td>{{$item['update_time']}}</td>
                             <td class="td-do">
-                                <a href="{{route('admin.setting.info',['id' => $item['id']])}}"
+                                <a href="{{route('admin.banner.edit',['id'=>$item['id']])}}"
                                    class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
                                     <i class="fa fa-pencil"></i>
                                 </a>
+                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
+                                   data-id="{{$item['id']}}" data-confirm-title="删除确认"
+                                   data-confirm-content='您确定要删除ID为 <span class="text-red">{{$item['id']}}</span> 的数据吗'
+                                   data-url="{{route('admin.banner.del')}}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
                             </td>
                         </tr>
                         @endforeach
