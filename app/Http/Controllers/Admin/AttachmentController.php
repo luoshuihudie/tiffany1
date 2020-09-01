@@ -9,27 +9,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Services\AttachmentService;
 use App\Services\BannerService;
 
-class BannerController extends BaseController
+class AttachmentController extends BaseController
 {
 
     /**
-     * @var BannerService 设置服务
+     * @var AttachmentService 设置服务
      */
-    protected $bannerService;
+    protected $attachmentService;
 
     /**
      * SettingController 构造函数.
      *
-     * @param BannerService $linksService
+     * @param AttachmentService $linksService
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(BannerService $bannerService)
+    public function __construct(AttachmentService $attachmentService)
     {
         parent::__construct();
 
-        $this->bannerService = $bannerService;
+        $this->attachmentService = $attachmentService;
     }
 
     /**
@@ -41,9 +42,9 @@ class BannerController extends BaseController
      */
     public function index()
     {
-        $data = $this->bannerService->getPageData();
+        $data = $this->attachmentService->getPageData();
 
-        return view('admin.banner.index',$data);
+        return view('admin.attachment.index',$data);
     }
 
     /**
@@ -53,7 +54,7 @@ class BannerController extends BaseController
      */
     public function lists()
     {
-        $data = $this->bannerService->getListsData();
+        $data = $this->attachmentService->getListsData();
 
         return $this->ajaxSuccess($data);
     }
@@ -66,7 +67,7 @@ class BannerController extends BaseController
      */
     public function update()
     {
-        return $this->bannerService->update();
+        return $this->attachmentService->update();
     }
 
     /**
@@ -78,7 +79,7 @@ class BannerController extends BaseController
      */
     public function add()
     {
-        return view('admin.banner.add');
+        return view('admin.attachment.add');
     }
 
     /**
@@ -89,7 +90,7 @@ class BannerController extends BaseController
      */
     public function create()
     {
-        return $this->bannerService->create();
+        return $this->attachmentService->create();
     }
 
     /**
@@ -102,9 +103,9 @@ class BannerController extends BaseController
      */
     public function edit($id)
     {
-        $data = $this->bannerService->findById($id);
+        $data = $this->attachmentService->findById($id);
 
-        return view('admin.banner.edit',[
+        return view('admin.attachment.edit',[
             'data'               => $data,
         ]);
     }
@@ -117,7 +118,7 @@ class BannerController extends BaseController
      */
     public function del()
     {
-        return $this->bannerService->del();
+        return $this->attachmentService->del();
     }
 
 }

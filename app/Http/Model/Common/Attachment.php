@@ -7,9 +7,8 @@
 
 namespace App\Http\Model\Common;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Attachment extends Model
+class Attachment extends BaseModel
 {
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';

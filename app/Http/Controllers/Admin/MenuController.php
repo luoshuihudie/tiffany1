@@ -9,27 +9,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\BannerService;
+use App\Services\MenuService;
 
-class BannerController extends BaseController
+class MenuController extends BaseController
 {
 
     /**
-     * @var BannerService 设置服务
+     * @var MenuService 设置服务
      */
-    protected $bannerService;
+    protected $menuService;
 
     /**
      * SettingController 构造函数.
      *
-     * @param BannerService $linksService
+     * @param MenuService $linksService
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(BannerService $bannerService)
+    public function __construct(MenuService $menuService)
     {
         parent::__construct();
 
-        $this->bannerService = $bannerService;
+        $this->menuService = $menuService;
     }
 
     /**
@@ -41,9 +41,9 @@ class BannerController extends BaseController
      */
     public function index()
     {
-        $data = $this->bannerService->getPageData();
+        $data = $this->menuService->websiteMenuTree();
 
-        return view('admin.banner.index',$data);
+        return view('admin.menu.index',['data'  => $data]);
     }
 
     /**
@@ -53,7 +53,7 @@ class BannerController extends BaseController
      */
     public function lists()
     {
-        $data = $this->bannerService->getListsData();
+        $data = $this->menuService->getListsData();
 
         return $this->ajaxSuccess($data);
     }
@@ -66,7 +66,7 @@ class BannerController extends BaseController
      */
     public function update()
     {
-        return $this->bannerService->update();
+        return $this->menuService->update();
     }
 
     /**
@@ -78,7 +78,9 @@ class BannerController extends BaseController
      */
     public function add()
     {
-        return view('admin.banner.add');
+        $data = $this->menuService->add();
+
+        return view('admin.menu.add', ['parents' => $data['parents']]);
     }
 
     /**
@@ -89,7 +91,7 @@ class BannerController extends BaseController
      */
     public function create()
     {
-        return $this->bannerService->create();
+        return $this->menuService->create();
     }
 
     /**
@@ -102,11 +104,9 @@ class BannerController extends BaseController
      */
     public function edit($id)
     {
-        $data = $this->bannerService->findById($id);
+        $data = $this->menuService->edit($id);
 
-        return view('admin.banner.edit',[
-            'data'               => $data,
-        ]);
+        return view('admin.menu.edit', $data);
     }
 
     /**
@@ -117,7 +117,7 @@ class BannerController extends BaseController
      */
     public function del()
     {
-        return $this->bannerService->del();
+        return $this->menuService->del();
     }
 
 }
