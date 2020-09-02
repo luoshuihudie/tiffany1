@@ -265,6 +265,7 @@ class MenuService extends AdminBaseService
 
         //删除改Banner对应的栏目关联
         MenuBannerRelation::where('menu_id', $id)->delete();
+
         $count = $this->menu->destroy($id);
 
         return $count > 0 ? success('操作成功', URL_RELOAD) : error();

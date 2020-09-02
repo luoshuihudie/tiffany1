@@ -152,7 +152,7 @@ class AdminMenuRepository implements AdminMenuInterface
         $have_son = AdminMenu::whereIn('parent_id', $id)->first();
 
         if ($have_son) {
-            return error('有子菜单不可删除！');
+            return error('有子菜单不可删除！请先删除子菜单');
         }
 
         $noDeletionId = (new AdminMenu())->getNoDeletionId();

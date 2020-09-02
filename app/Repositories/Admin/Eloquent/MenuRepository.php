@@ -118,6 +118,12 @@ class MenuRepository implements MenuInterface
      */
     public function destroy($id)
     {
+        //判断是否有子菜单
+        $have_son = Menu::whereIn('parent_id', $id)->first();
+
+        if ($have_son) {
+            return error('有子菜单不可删除！请先删除子菜单');
+        }
         is_string($id) && $id = [$id];
 
         $noDeletionId = (new Menu())->getNoDeletionId();
