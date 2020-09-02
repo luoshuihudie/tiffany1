@@ -68,7 +68,7 @@ class AdminRepositoryServiceProvider extends ServiceProvider
                 foreach ($query->bindings as $i => $item) {
                     $sql = preg_replace('/\?/', "'$item'", $sql, 1);
                 }
-                file_put_contents('sql.txt', "$sql [$query->time]", FILE_APPEND);
+                logger("$sql [$query->time]");
             });
         }
     }
