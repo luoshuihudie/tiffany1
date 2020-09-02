@@ -62,6 +62,14 @@ class AdminRepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (config('app.debug', false)) {
+            \DB::listen(function ($query) {
+                $sql = $query->sql;
+                foreach ($query->bindings as $i => $item) {
+                    $sql = preg_replace('/\?/', "'$item'", $sql, 1);
+                }
+                file_put_contents('sql.txt', "$sql [$query->time]", FILE_APPEND);
+            });
+        }
     }
 }

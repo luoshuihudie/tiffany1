@@ -118,6 +118,12 @@ class SettingService extends AdminBaseService
         return $data;
     }
 
+    public function getDataBySettingGroupId() {
+        $param           = $this->request->input();
+        $id = $param['id'] ?? 2;
+        return $this->setting->getDataBySettingGroupId($id);
+    }
+
     /**
      * 更新设置
      *

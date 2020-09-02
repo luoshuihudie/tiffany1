@@ -13,13 +13,14 @@ use App\Http\Model\Common\Attachment;
 use App\Http\Model\Common\MenuBannerRelation;
 use App\Repositories\Admin\Contracts\MenuInterface;
 use App\Traits\Admin\AdminTree;
+use App\Traits\Admin\MenuTree;
 use App\Traits\Admin\SearchHandle;
 use App\Validate\Admin\AdminMenuValidate;
 use Illuminate\Http\Request;
 
 class MenuService extends AdminBaseService
 {
-    use AdminTree, SearchHandle;
+    use AdminTree, SearchHandle, MenuTree;
 
     /**
      * @var Request 框架request对象
@@ -147,24 +148,29 @@ class MenuService extends AdminBaseService
         }
 
         $curr_start = ($curr_page == 1) ? 0 : $page_size * ($curr_page - 1);
-        $links['total'] = $query->count();
+        $returnData['total'] = $query->count();
 
-        $links['lists'] = [];
+        $returnData['lists'] = [];
         if (isset($param['multiple_fields'])) {
             $query = $this->getMultipleFieldsQuery($query, $param['multiple_fields'], []);
         }
         $lists = [];
         try{
-            $lists = $query->orderBy($sort_by, $sort)
+            $lists = $query->with('banners')->orderBy($sort_by, $sort)
                 ->skip($curr_start)
                 ->take($page_size)
                 ->get();
         } catch (\Exception $e) {
 
         }
-        $links['lists'] = $lists;
 
-        return $links;
+        //构建树状结构
+        if ($lists) {
+            $lists = $this->getMenuTree($lists);
+        }
+        $returnData['lists'] = $lists;
+
+        return $returnData;
     }
 
     /**

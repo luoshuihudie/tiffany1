@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/config',"Admin\BaseController@config")->name('config');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'website'], function(){
     //栏目管理
@@ -33,4 +32,3 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'website'], function(){
     //删除菜单
     Route::post('menu/del',"MenuController@del")->name('website.menu.del');
 });
-

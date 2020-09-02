@@ -120,4 +120,15 @@ class MenuController extends BaseController
         return $this->menuService->del();
     }
 
+    /**
+     * 删除设置
+     *
+     * Author: Stephen
+     * Date: 2020/7/24 16:16:12
+     */
+    public function info()
+    {
+        return $this->menuService->del();
+    }
+
 }

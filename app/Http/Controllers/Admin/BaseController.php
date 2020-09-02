@@ -119,7 +119,7 @@ class BaseController extends Controller
         ];
     }
 
-    public function config()
+    public function lists()
     {
         return $this->ajaxSuccess(Config::get('config.base'));
     }

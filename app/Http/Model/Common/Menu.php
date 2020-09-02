@@ -60,4 +60,14 @@ class Menu extends BaseModel
     protected static function booted()
     {
     }
+
+    public function banners()
+    {
+        return $this->belongsToMany(
+            Banner::class,
+            'menu_banner_relation',
+            'menu_id',
+            'banner_id'
+        )->orderBy('banner.sort', 'desc');
+    }
 }

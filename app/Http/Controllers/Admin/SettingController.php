@@ -123,6 +123,18 @@ class SettingController extends BaseController
     }
 
     /**
+     * 设置
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Author: Stephen
+     * Date: 2020/7/24 16:14:25
+     */
+    public function lists()
+    {
+        return $this->settingService->getDataBySettingGroupId();
+    }
+
+    /**
      * 添加设置界面
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

@@ -48,6 +48,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAdminRoutes();
 
+        $this->mapSdkRoutes();
+
         //
     }
 
@@ -93,4 +95,18 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/admin.php'));
     }
 
+    /**
+     * Define the "sdk" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapSdkRoutes()
+    {
+        Route::prefix('sdk')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdk.php'));
+    }
 }
