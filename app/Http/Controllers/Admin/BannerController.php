@@ -78,7 +78,8 @@ class BannerController extends BaseController
      */
     public function add()
     {
-        return view('admin.banner.add');
+        $data = $this->bannerService->add();
+        return view('admin.banner.add', $data);
     }
 
     /**
@@ -102,11 +103,9 @@ class BannerController extends BaseController
      */
     public function edit($id)
     {
-        $data = $this->bannerService->findById($id);
+        $data = $this->bannerService->edit($id);
 
-        return view('admin.banner.edit',[
-            'data'               => $data,
-        ]);
+        return view('admin.banner.edit', $data);
     }
 
     /**

@@ -7,7 +7,7 @@
 
 namespace App\Http\Model\Common;
 
-class Banner extends BaseModel
+class MenuBannerRelation extends BaseModel
 {
 
     const CREATED_AT = 'create_time';

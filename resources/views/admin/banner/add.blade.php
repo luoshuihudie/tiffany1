@@ -21,6 +21,18 @@
                     <!-- 表单字段区域 -->
                     <div class="box-body">
                         <div class="form-group">
+                            <label for="parent_id" class="col-sm-2 control-label">所属栏目</label>
+                            <div class="col-sm-10 col-md-4">
+                                <select name="menu_id" id="parent_id" class="form-control select2">
+                                    <option value="0">/</option>
+                                    {!! $parents ?? '' !!}
+                                </select>
+                            </div>
+                        </div>
+                        <script>
+                            $('#parent_id').select2();
+                        </script>
+                        <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">名称</label>
                             <div class="col-sm-10 col-md-4">
                                 <input id="name" name="title" value="{{isset($data['title']) ? $data['title'] : ''}}" placeholder="请输入名称"

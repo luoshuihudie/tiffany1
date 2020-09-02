@@ -10,7 +10,9 @@
 namespace App\Services;
 
 use App\Http\Model\Common\Attachment;
+use App\Http\Model\Common\MenuBannerRelation;
 use App\Repositories\Admin\Contracts\BannerInterface;
+use App\Repositories\Admin\Contracts\MenuInterface;
 use App\Traits\Admin\AdminTree;
 use App\Traits\Admin\SearchHandle;
 use App\Validate\Admin\AdminMenuValidate;
@@ -35,6 +37,8 @@ class BannerService extends AdminBaseService
      */
     protected $banner;
 
+    protected $menu;
+
     /**
      * AdminMenuService 构造函数.
      *
@@ -45,12 +49,14 @@ class BannerService extends AdminBaseService
     public function __construct(
         Request $request ,
         AdminMenuValidate $validate ,
-        BannerInterface $banner
+        BannerInterface $banner,
+        MenuInterface $menu
     )
     {
         $this->request   = $request;
         $this->validate  = $validate;
         $this->banner = $banner;
+        $this->menu = $menu;
     }
 
     /**
@@ -145,7 +151,6 @@ class BannerService extends AdminBaseService
 
         return [
             'parents'    => $parents,
-            'log_method' => $this->adminMenu->getLogMethod()
         ];
     }
 
@@ -166,7 +171,25 @@ class BannerService extends AdminBaseService
         if ($file) {
             $param['img'] = $file->url;
         }
+
+        if (isset($param['menu_id'])) {
+            $menuId = $param['menu_id'];
+            unset($param['menu_id']);
+        }
+
         $result = $this->banner->create($param);
+
+        if (isset($menuId) && $result) {
+            //创建关联
+            try {
+                MenuBannerRelation::create([
+                    'menu_id' => $menuId,
+                    'banner_id' => $result->id,
+                ]);
+            } catch (\Exception $e) {
+
+            }
+        }
 
         return $result ? success('添加成功') : error();
     }
@@ -181,11 +204,20 @@ class BannerService extends AdminBaseService
      */
     public function edit($id)
     {
-        $data      = $this->banner->find($id);
+        $data      = $this->banner->findById($id);
 
-        $parent_id = $data->parent_id;
+        //查询到关联项目ID
+        $menuBannerRelation = MenuBannerRelation::where([
+            'banner_id' => $id
+        ])->first();
 
-        $parents   = $this->menu($parent_id);
+        $menu_id = 0;
+
+        if ($menuBannerRelation) {
+            $menu_id = $menuBannerRelation->menu_id;
+        }
+
+        $parents   = $this->menu($menu_id);
 
         return [
             'data'       => $data,
@@ -216,7 +248,28 @@ class BannerService extends AdminBaseService
             $param['img'] = $file->url;
         }
 
+        if (isset($param['menu_id'])) {
+            $menuId = $param['menu_id'];
+            unset($param['menu_id']);
+        }
         $result = $links->update($param);
+
+        if (isset($menuId)) {
+            $menuBannerRelation = MenuBannerRelation::where([
+                'menu_id' => $menuId,
+                'banner_id' => $id,
+            ])->first();
+
+            if ($menuBannerRelation) {
+                $menuBannerRelation->menu_id = $menuId;
+                $menuBannerRelation->save();
+            } else {
+                MenuBannerRelation::create([
+                    'menu_id' => $menuId,
+                    'banner_id' => $id,
+                ]);
+            }
+        }
 
         return $result ? success() : error();
     }
@@ -232,6 +285,8 @@ class BannerService extends AdminBaseService
         $id = $this->request->input('id');
         is_string($id) && $id = [$id];
 
+        //删除改Banner对应的栏目关联
+        MenuBannerRelation::where('banner_id', $id)->delete();
         $count = $this->banner->destroy($id);
 
         return $count > 0 ? success('操作成功', URL_RELOAD) : error();
@@ -248,7 +303,7 @@ class BannerService extends AdminBaseService
      */
     protected function menu($selected = 1, $current_id = 0)
     {
-        $result = $this->adminMenu->menu($current_id);
+        $result = $this->menu->menu($current_id);
         $result = array_column($result,NULL,'id');
 
         foreach ($result as $r) {

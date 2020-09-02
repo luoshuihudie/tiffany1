@@ -10,6 +10,7 @@
 namespace App\Services;
 
 use App\Http\Model\Common\Attachment;
+use App\Http\Model\Common\MenuBannerRelation;
 use App\Repositories\Admin\Contracts\MenuInterface;
 use App\Traits\Admin\AdminTree;
 use App\Traits\Admin\SearchHandle;
@@ -262,6 +263,8 @@ class MenuService extends AdminBaseService
         $id = $this->request->input('id');
         is_string($id) && $id = [$id];
 
+        //删除改Banner对应的栏目关联
+        MenuBannerRelation::where('menu_id', $id)->delete();
         $count = $this->menu->destroy($id);
 
         return $count > 0 ? success('操作成功', URL_RELOAD) : error();
