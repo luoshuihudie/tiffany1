@@ -53,9 +53,9 @@ class MenuController extends BaseController
      */
     public function lists()
     {
-        $data = $this->menuService->getListsData();
+        $data = $this->menuService->getAllMenuData();
 
-        return $this->ajaxSuccess($data);
+        return $this->ajaxSuccess(array_merge([], $data));
     }
 
     /**
@@ -128,7 +128,7 @@ class MenuController extends BaseController
      */
     public function info()
     {
-        return $this->menuService->del();
+        return $this->ajaxSuccess($this->menuService->info());
     }
 
 }

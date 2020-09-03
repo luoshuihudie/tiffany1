@@ -10,6 +10,7 @@
 namespace App\Services;
 
 use App\Http\Model\Common\Attachment;
+use App\Http\Model\Common\Menu;
 use App\Http\Model\Common\MenuBannerRelation;
 use App\Repositories\Admin\Contracts\MenuInterface;
 use App\Traits\Admin\AdminTree;
@@ -174,6 +175,31 @@ class MenuService extends AdminBaseService
     }
 
     /**
+     * 设置中心 首页数据查询
+     *
+     * @return array
+     * Author: Stephen
+     * Date: 2020/7/28 11:18:47
+     */
+    public function getAllMenuData()
+    {
+        $query = $this->menu->query();
+        try{
+            $lists = $query->with('banners')->get();
+        } catch (\Exception $e) {
+
+        }
+
+        //构建树状结构
+        if ($lists) {
+            $lists = $this->getMenuTree($lists);
+        }
+
+        $lists = array_column($lists, null, 'id');
+        return $lists;
+    }
+
+    /**
      * 根据id查找设置
      *
      * @param $id
@@ -277,6 +303,24 @@ class MenuService extends AdminBaseService
         return $count > 0 ? success('操作成功', URL_RELOAD) : error();
     }
 
+
+    /**
+     * 删除菜单
+     *
+     * Author: Stephen
+     * Date: 2020/7/27 17:06:46
+     */
+    public function info()
+    {
+        $id = $this->request->input('id');
+        $data = $this->getAllMenuData();
+        $returnData = [];
+        if (isset($data[$id])) {
+            $returnData = $data[$id];
+        }
+
+        return $returnData;
+    }
     /**
      * 菜单选择 select树形选择
      *

@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'v1'], function(){
     //获取某一个菜单
-    Route::get('menu/info/{id}',"MenuController@info")->name('api.menu.info');
+    Route::get('menu/info',"MenuController@info")->name('api.menu.info');
 
     //菜单树状结构
     Route::get('menu/lists',"MenuController@lists")->name('api.menu.lists');

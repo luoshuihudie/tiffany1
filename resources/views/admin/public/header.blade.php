@@ -2,8 +2,8 @@
 @if(!$admin['pjax'])
 <header class="main-header">
     <a class="logo">
-        <span class="logo-mini">{{isset($admin['short_name']) ? $admin['short_name'] : 'Backend'}}</span>
-        <span class="logo-lg">{{isset($admin['name']) ? $admin['name'] : 'Backend'}}</span>
+        <span class="logo-mini">{{isset($admin['short_name']) && $admin['short_name']  ? $admin['short_name'] : 'Tiffany后台管理平台'}}</span>
+        <span class="logo-lg">{{isset($admin['name']) && $admin['name'] ? $admin['name'] : 'Tiffany后台管理平台'}}</span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
