@@ -10,7 +10,7 @@
 namespace App\Repositories\Admin\Contracts;
 
 
-interface MenuInterface
+interface AboutInterface
 {
     /**
      * 设置界面首页数据查询
@@ -52,4 +52,5 @@ interface MenuInterface
      * Date: 2020/7/27 16:17:56
      */
     public function destroy($id);
+
 }

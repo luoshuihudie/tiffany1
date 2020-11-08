@@ -220,4 +220,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin','middleware' => ['admi
     Route::post('attachment/update',"AttachmentController@update")->name('admin.attachment.update');
     //删除菜单
     Route::post('attachment/del',"AttachmentController@del")->name('admin.attachment.del');
+
+    //网站配置管理
+    Route::get('about/index',"AboutController@index")->name('admin.about.index');
+    Route::get('about/lists',"AboutController@lists")->name('admin.about.lists');
+    //添加菜单-界面
+    Route::get('about/add',"AboutController@add")->name('admin.about.add');
+    //添加菜单操作
+    Route::post('about/create',"AboutController@create")->name('admin.about.create');
+    //修改菜单-界面
+    Route::get('about/edit/{id}',"AboutController@edit")->name('admin.about.edit');
+    //修改菜单
+    Route::post('about/update',"AboutController@update")->name('admin.about.update');
+    //删除菜单
+    Route::post('about/del',"AboutController@del")->name('admin.about.del');
+
 });

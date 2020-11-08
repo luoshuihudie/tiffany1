@@ -25,6 +25,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'v1'], function(){
     //菜单树状结构
     Route::get('menu/lists',"MenuController@lists")->name('api.menu.lists');
 
+    Route::get('menu/menu-lists',"MenuController@menuList")->name('api.menu.menu-lists');
+
+    Route::get('menu/menu-index',"MenuController@menuIndex")->name('api.menu.menu-index');
+
     Route::get('config/lists',"BaseController@lists")->name('api.config.lists');
 
     //友情链接列表

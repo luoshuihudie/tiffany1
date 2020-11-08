@@ -9,27 +9,28 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\MenuService;
+use App\Services\AboutService;
+use App\Services\BannerService;
 
-class MenuController extends BaseController
+class AboutController extends BaseController
 {
 
     /**
-     * @var MenuService 设置服务
+     * @var AboutService 设置服务
      */
-    protected $menuService;
+    protected $aboutService;
 
     /**
      * SettingController 构造函数.
      *
-     * @param MenuService $linksService
+     * @param BannerService $linksService
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct(MenuService $menuService)
+    public function __construct(AboutService $aboutService)
     {
         parent::__construct();
 
-        $this->menuService = $menuService;
+        $this->aboutService = $aboutService;
     }
 
     /**
@@ -41,9 +42,9 @@ class MenuController extends BaseController
      */
     public function index()
     {
-        $data = $this->menuService->websiteMenuTree();
+        $data = $this->aboutService->getPageData();
 
-        return view('admin.menu.index',['data'  => $data]);
+        return view('admin.about.index',$data);
     }
 
     /**
@@ -53,9 +54,9 @@ class MenuController extends BaseController
      */
     public function lists()
     {
-        $data = $this->menuService->getAllMenuData();
+        $data = $this->aboutService->getListsData();
 
-        return $this->ajaxSuccess(array_merge([], $data));
+        return $this->ajaxSuccess($data);
     }
 
     /**
@@ -66,7 +67,7 @@ class MenuController extends BaseController
      */
     public function update()
     {
-        return $this->menuService->update();
+        return $this->aboutService->update();
     }
 
     /**
@@ -78,9 +79,8 @@ class MenuController extends BaseController
      */
     public function add()
     {
-        $data = $this->menuService->add();
-
-        return view('admin.menu.add', ['parents' => $data['parents']]);
+        $data = $this->aboutService->add();
+        return view('admin.about.add', $data);
     }
 
     /**
@@ -91,7 +91,7 @@ class MenuController extends BaseController
      */
     public function create()
     {
-        return $this->menuService->create();
+        return $this->aboutService->create();
     }
 
     /**
@@ -104,9 +104,9 @@ class MenuController extends BaseController
      */
     public function edit($id)
     {
-        $data = $this->menuService->edit($id);
+        $data = $this->aboutService->edit($id);
 
-        return view('admin.menu.edit', $data);
+        return view('admin.about.edit', $data);
     }
 
     /**
@@ -117,41 +117,7 @@ class MenuController extends BaseController
      */
     public function del()
     {
-        return $this->menuService->del();
+        return $this->aboutService->del();
     }
 
-    /**
-     * 删除设置
-     *
-     * Author: Stephen
-     * Date: 2020/7/24 16:16:12
-     */
-    public function info()
-    {
-        return $this->ajaxSuccess($this->menuService->info());
-    }
-
-    /**
-     * 设置列表页
-     *
-     * @return array
-     */
-    public function menuList()
-    {
-        $data = $this->menuService->getMenuData();
-
-        return $this->ajaxSuccess(array_merge([], $data));
-    }
-
-    /**
-     * 设置列表页
-     *
-     * @return array
-     */
-    public function menuIndex()
-    {
-        $data = $this->menuService->getMenuIndexData();
-
-        return $this->ajaxSuccess(array_merge([], $data));
-    }
 }

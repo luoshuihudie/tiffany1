@@ -85,6 +85,7 @@
                             <td>{{$item['url']}}</td>
                             <td>{{$item['original_name']}}</td>
                             <td>{{$item['url']}}</td>
+{{--                            <td><img src="{{$item['url']}}" alt="{{$item['original_name']}}" width="10%"/> </td>--}}
                             <td>{{$item['create_time']}}</td>
                             <td>{{$item['update_time']}}</td>
                             <td class="td-do">

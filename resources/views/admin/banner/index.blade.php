@@ -88,6 +88,7 @@
                             <td>{{$item['title']}}</td>
                             <td>{{$item['url']}}</td>
                             <td>{{$item['img']}}</td>
+{{--                            <td><img src="{{$item['img']}}" alt="{{$item['title']}}" width="10%"/> </td>--}}
                             <td>{{$item['desc']}}</td>
                             <td>{{$item['sort']}}</td>
                             <td>{{$item['create_time']}}</td>

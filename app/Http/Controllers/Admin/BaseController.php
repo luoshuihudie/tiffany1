@@ -46,7 +46,7 @@ class BaseController extends Controller
         {
             $baseVar['admin']['menu'] = $this->getLeftMenu($url,$loginUser);
         }
-
+        
         //全局通用变量
         view()->share('admin',$baseVar['admin']);
         view()->share('debug',$baseVar['debug']);
@@ -64,6 +64,9 @@ class BaseController extends Controller
     public function baseVar($loginUser) :array
     {
         $admin_config = config('admin.admin.base');
+        if (!$admin_config) {
+            $admin_config = config('Admin.admin.base');
+        }
         $perPage      = request()->cookie('admin_per_page') ?? 10;
         $perPage      = $perPage < 100 ? $perPage : 100;
 

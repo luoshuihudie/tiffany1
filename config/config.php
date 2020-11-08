@@ -10,6 +10,6 @@ return [
     //基本设置:后台的基本信息设置
     'base'=>[
         //后台服务地址
-        'server' => env('APP_SERVER', 'api.tiffany.qiaobala.com'),
+        'server' => env('APP_SERVER', 'tiffany.qiaobala.com'),
     ]
 ];

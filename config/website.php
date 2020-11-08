@@ -2,13 +2,15 @@
 
 /**
 * 网站配置:设置前端网站所有可编辑内容
-* 此配置文件为自动生成，生成时间2020-08-31 06:52:56
+* 此配置文件为自动生成，生成时间2020-10-28 07:07:15
 * @author yuxingfei<474949931@qq.com>
 */
 
 return [
     //网站配置:设置前端网站所有可编辑内容
     'website-index'=>[
+    //Logo
+    'logo'=>'/storage/attachment/6WHvfMPa3MrPg8WGVDKCQOgTRKvl74mqSvztWrrg.png',
     //QQ
     'qq'=>'qq',
     //支付宝图片地址

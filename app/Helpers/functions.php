@@ -241,6 +241,13 @@ if (!function_exists('create_setting_file')) {
 
             $setting   = $data->setting;
             $path      = config_path().'/'. $file;
+            if (!file_exists($path)) {
+                $file = ucfirst($data->module) . '/' . $data->code . '.php';
+            }
+            $path      = config_path().'/'. $file;
+            if (!file_exists($path)) {
+                return true;
+            }
             $file_code = "<?php\r\n\r\n/**\r\n* " .
                 $data->name . ':' . $data->description .
                 "\r\n* 此配置文件为自动生成，生成时间" . date('Y-m-d H:i:s') .

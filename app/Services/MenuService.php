@@ -181,9 +181,17 @@ class MenuService extends AdminBaseService
      * Author: Stephen
      * Date: 2020/7/28 11:18:47
      */
-    public function getAllMenuData()
+    public function getAllMenuData($id = 0)
     {
+        $parentId = 0;
         $query = $this->menu->query();
+        if ($id) {
+            $result = $query->where('id', $id)->pluck('parent_id');
+            if ($result->toArray()) {
+                $parentId = $result[0];
+            }
+            $query = $query->orWhere('parent_id', $id);
+        }
         try{
             $lists = $query->with('banners')->get();
         } catch (\Exception $e) {
@@ -192,10 +200,74 @@ class MenuService extends AdminBaseService
 
         //构建树状结构
         if ($lists) {
-            $lists = $this->getMenuTree($lists);
+            $lists = $this->getMenuTree($lists, $parentId);
         }
 
         $lists = array_column($lists, null, 'id');
+        return $lists;
+    }
+
+    /**
+     * 设置中心 首页数据查询
+     *
+     * @return array
+     * Author: Stephen
+     * Date: 2020/7/28 11:18:47
+     */
+    public function getMenuData($id = 0)
+    {
+        $parentId = 0;
+        $query = $this->menu->query();
+        if ($id) {
+            $result = $query->where('id', $id)->pluck('parent_id');
+            if ($result->toArray()) {
+                $parentId = $result[0];
+            }
+            $query = $query->orWhere('parent_id', $id);
+        }
+        try{
+            $lists = $query->get();
+        } catch (\Exception $e) {
+
+        }
+
+        //构建树状结构
+        if ($lists) {
+            $lists = $this->getMenuTree($lists, $parentId);
+        }
+
+        return $lists;
+    }
+
+    /**
+     * 设置中心 首页数据查询
+     *
+     * @return array
+     * Author: Stephen
+     * Date: 2020/7/28 11:18:47
+     */
+    public function getMenuIndexData($id = 7)
+    {
+        $parentId = 0;
+        $query = $this->menu->query();
+        if ($id) {
+            $result = $query->where('id', $id)->pluck('parent_id');
+            if ($result->toArray()) {
+                $parentId = $result[0];
+            }
+            $query = $query->orWhere('parent_id', $id);
+        }
+        try{
+            $lists = $query->with('banners')->get();
+        } catch (\Exception $e) {
+
+        }
+
+        //构建树状结构
+        if ($lists) {
+            $lists = $this->getMenuTree($lists, $parentId);
+        }
+
         return $lists;
     }
 
@@ -313,7 +385,7 @@ class MenuService extends AdminBaseService
     public function info()
     {
         $id = $this->request->input('id');
-        $data = $this->getAllMenuData();
+        $data = $this->getAllMenuData($id);
         $returnData = [];
         if (isset($data[$id])) {
             $returnData = $data[$id];

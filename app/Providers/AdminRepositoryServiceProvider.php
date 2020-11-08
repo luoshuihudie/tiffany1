@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Admin\Contracts\AboutInterface;
 use App\Repositories\Admin\Contracts\AdminLogInterface;
 use App\Repositories\Admin\Contracts\AdminMenuInterface;
 use App\Repositories\Admin\Contracts\AdminRoleInterface;
@@ -15,6 +16,7 @@ use App\Repositories\Admin\Contracts\SettingGroupInterface;
 use App\Repositories\Admin\Contracts\SettingInterface;
 use App\Repositories\Admin\Contracts\UserInterface;
 use App\Repositories\Admin\Contracts\UserLevelInterface;
+use App\Repositories\Admin\Eloquent\AboutRepository;
 use App\Repositories\Admin\Eloquent\AdminLogRepository;
 use App\Repositories\Admin\Eloquent\AdminMenuRepository;
 use App\Repositories\Admin\Eloquent\AdminRoleRepository;
@@ -53,6 +55,7 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(BannerInterface::class,BannerRepository::class);
         $this->app->singleton(MenuInterface::class,MenuRepository::class);
         $this->app->singleton(AttachmentInterface::class,AttachmentRepository::class);
+        $this->app->singleton(AboutInterface::class,AboutRepository::class);
     }
 
     /**

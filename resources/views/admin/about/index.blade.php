@@ -10,7 +10,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-                    <form class="form-inline searchForm" id="searchForm" action="{{route('admin.links.index')}}" method="GET">
+                    <form class="form-inline searchForm" id="searchForm" action="{{route('admin.about.index')}}" method="GET">
 
                         <div class="form-group">
                             <input value="{{isset($_keywords) ? $_keywords : ''}}"
@@ -41,12 +41,12 @@
                 <!--数据列表顶部-->
                 <div class="box-header">
                     <div>
-                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{{route('admin.links.add')}}">
+                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{{route('admin.about.add')}}">
                             <i class="fa fa-plus"></i> 添加
                         </a>
                         <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
                            data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked"
-                           data-url="{{route('admin.links.del')}}">
+                           data-url="{{route('admin.about.del')}}">
                             <i class="fa fa-trash"></i> 删除
                         </a>
 
@@ -65,11 +65,11 @@
                                        placeholder="全选/取消">
                             </th>
                             <th>ID</th>
-                            <th>名称</th>
-                            <th>链接</th>
-                            <th>缩略图</th>
-                            <th>描述</th>
-                            <th>排序</th>
+                            <th>简介</th>
+                            <th>标题</th>
+                            <th>管理人员简介</th>
+                            <th>管理人员标题</th>
+                            <th>是否显示</th>
                             <th>创建时间</th>
                             <th>更新时间</th>
 
@@ -85,23 +85,23 @@
                                        placeholder="选择/取消">
                             </td>
                             <td>{{$item['id']}}</td>
+                            <td>{{$item['content']}}</td>
                             <td>{{$item['title']}}</td>
-                            <td>{{$item['url']}}</td>
-                            <td>{{$item['img']}}</td>
-                            {{--                            <td><img src="{{$item['img']}}" alt="{{$item['title']}}" width="10%"/> </td>--}}
-                            <td>{{$item['desc']}}</td>
-                            <td>{{$item['sort']}}</td>
+                            <td>{{$item['manager_content']}}</td>
+{{--                            <td><img src="{{$item['img']}}" alt="{{$item['title']}}" width="10%"/> </td>--}}
+                            <td>{{$item['manager_title']}}</td>
+                            <td>{{$item['is_show'] == 1 ? '是' : '否'}}</td>
                             <td>{{$item['create_time']}}</td>
                             <td>{{$item['update_time']}}</td>
                             <td class="td-do">
-                                <a href="{{route('admin.links.edit',['id'=>$item['id']])}}"
+                                <a href="{{route('admin.about.edit',['id'=>$item['id']])}}"
                                    class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
                                    data-id="{{$item['id']}}" data-confirm-title="删除确认"
                                    data-confirm-content='您确定要删除ID为 <span class="text-red">{{$item['id']}}</span> 的数据吗'
-                                   data-url="{{route('admin.links.del')}}">
+                                   data-url="{{route('admin.about.del')}}">
                                     <i class="fa fa-trash"></i>
                                 </a>
 

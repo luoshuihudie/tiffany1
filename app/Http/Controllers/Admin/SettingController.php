@@ -131,7 +131,15 @@ class SettingController extends BaseController
      */
     public function lists()
     {
-        return $this->settingService->getDataBySettingGroupId();
+        $data = $this->settingService->getDataBySettingGroupId() ?? [];
+
+        if ($data) {
+            $data->map(function ($item) {
+               $item->content = array_column($item->content, null, 'field');
+            });
+        }
+
+        return $this->ajaxSuccess($data);
     }
 
     /**

@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+#Route::get('/', function () {
+ #   return view('welcome');
+#});
+Route::get('/', "Admin\IndexController@index")->name('admin');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'website'], function(){
     //栏目管理
