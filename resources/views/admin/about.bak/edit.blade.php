@@ -16,55 +16,51 @@
                     </div>
                 </div>
                 <!-- 表单 -->
-                <form id="dataForm" class="form-horizontal dataForm" action="{{route('admin.user_level.create')}}" method="post"
+                <form id="dataForm" class="form-horizontal dataForm" action="{{route('admin.about.update')}}" method="post"
                       enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{$data['id']}}">
                     <!-- 表单字段区域 -->
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">名称</label>
+                            <label for="content" class="col-sm-2 control-label">简介</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="name" name="name" value="{{isset($data['name']) ? $data['name'] : ''}}" placeholder="请输入名称"
+                                <input id="content" name="title" value="{{isset($data['content']) ? $data['content'] : ''}}" placeholder="请输入简介"
                                        type="text" class="form-control field-text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">简介</label>
+                            <label for="title" class="col-sm-2 control-label">标题</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="description" name="description" value="{{isset($data['description']) ? $data['description'] : ''}}"
-                                       placeholder="请输入简介" type="text" class="form-control field-text">
+                                <input id="title" name="title" value="{{isset($data['title']) ? $data['title'] : ''}}" placeholder="请输入标题"
+                                       type="text" class="form-control field-text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="img" class="col-sm-2 control-label">图片</label>
+                            <label for="manager_content" class="col-sm-2 control-label">管理人员简介</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="img" name="img" placeholder="请上传图片" @if(isset($data['img']))data-initial-preview="{{$data['img']}}" @endif type="file"
-                                class="form-control field-image" >
+                                <input id="manager_content" name="title" value="{{isset($data['manager_content']) ? $data['manager_content'] : ''}}" placeholder="请输入管理人员标题"
+                                       type="text" class="form-control field-text">
                             </div>
                         </div>
-                        <script>
-                            $('#img').fileinput({
-                                language: 'zh',
-                                overwriteInitial: true,
-                                browseLabel: '浏览',
-                                initialPreviewAsData: true,
-                                dropZoneEnabled: false,
-                                showUpload: false,
-                                showRemove: false,
-                                allowedFileTypes: ['image'],
-                                maxFileSize: 102400,
-                            });
-                        </script>
                         <div class="form-group">
-                            <label for="status" class="col-sm-2 control-label">是否启用</label>
+                            <label for="manager_title" class="col-sm-2 control-label">管理人员标题</label>
                             <div class="col-sm-10 col-md-4">
-                                <input class="input-switch" id="status" value="1" @if(!isset($data) || $data['status'] == 1)checked @endif type="checkbox"/>
-                                <input class="switch field-switch" placeholder="是否启用" name="status"
-                                       value="{{isset($data['status']) ? $data['status'] : '1'}}" hidden/>
+                                <input id="manager_title" name="title" value="{{isset($data['manager_title']) ? $data['manager_title'] : ''}}" placeholder="请输入管理人员标题"
+                                       type="text" class="form-control field-text">
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="is_show" class="col-sm-2 control-label">是否显示</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input class="input-switch" id="is_show" value="1"
+                                       @if(!isset($data) || $data['is_show'] == 1)checked @endif type="checkbox"/>
+                                <input class="switch" name="is_show" value="{{isset($data['is_show']) ? $data['is_show'] : '1'}}"
+                                       placeholder="" hidden/>
+                            </div>
+                        </div>
                         <script>
-                            $('#status').bootstrapSwitch({
+                            $('#is_show').bootstrapSwitch({
                                 onText: "是",
                                 offText: "否",
                                 onColor: "success",
@@ -74,6 +70,7 @@
                                 }
                             });
                         </script>
+
                     </div>
                     <!-- 表单底部 -->
                     <div class="box-footer">
@@ -105,33 +102,75 @@
         </div>
     </div>
 </section>
+
 <script>
     /** 表单验证 **/
     $('#dataForm').validate({
         rules: {
-            'name': {
+            'title': {
                 required: true,
             },
-            'description': {
+            'content': {
                 required: true,
             },
-            'status': {
+            'manager_content': {
                 required: true,
             },
+            'manager_title': {
+                required: true,
+            }
 
         },
         messages: {
-            'name': {
-                required: "名称不能为空",
-            },
-            'description': {
+            'content': {
                 required: "简介不能为空",
             },
-            'status': {
-                required: "是否启用不能为空",
+            'title': {
+                required: "标题不能为空",
             },
-
+            'manager_content': {
+                required: "管理人员简介不能为空",
+            },
+            'manager_title': {
+                required: "管理人员标题不能为空",
+            }
         }
     });
+
+
+    function addNew(obj, type) {
+        var template = $('#data-template').html();
+        if (obj == null) {
+            $("#dataBody").append(template);
+        } else {
+            if (type === 1) {
+                $(obj).parent().parent().before(template);
+            } else {
+                $(obj).parent().parent().after(template);
+            }
+        }
+
+        $('#dataBody select').select2();
+    }
+
+    function delThis(obj) {
+        layer.confirm('您确认删除本行吗？', {title: '删除确认', closeBtn: 1, icon: 3}, function () {
+            $(obj).parent().parent().remove();
+            layer.closeAll();
+        });
+    }
 </script>
+
+@if(!isset($data))
+<script>
+    $(function () {
+        addNew(null, 1);
+    });
+</script>
+@else
+<script>
+    $('#dataBody select').select2();
+</script>
+@endif
+
 @endsection

@@ -11,7 +11,7 @@ class MultiFile extends Field
     public static $html = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-    <div class="col-sm-8"> 
+    <div class="col-sm-8">
         <input id="[FIELD_NAME]" name="[FIELD_NAME][]"  placeholder="请上传[FORM_NAME]" multiple="multiple" type="file" class="form-control field-multi-file" >
     </div>
 </div>
@@ -19,7 +19,7 @@ class MultiFile extends Field
     $('#[FIELD_NAME]').fileinput({
         //theme: 'fas',
         language: 'zh',
-    
+
         browseLabel: '浏览',
         initialPreviewAsData: true,
         initialPreviewShowDelete:false,
@@ -31,7 +31,7 @@ class MultiFile extends Field
         initialPreview:{!! \$data->getData('[FIELD_NAME]') !!},
         @endif
         //默认限制10M
-        maxFileSize:10240
+        maxFileSize:102400
     });
 </script>\n
 EOF;

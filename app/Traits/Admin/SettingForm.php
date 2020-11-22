@@ -133,7 +133,7 @@ EOF;
     public $fileHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-    <div class="col-sm-10 col-md-4"> 
+    <div class="col-sm-10 col-md-4">
         <input id="[FIELD_NAME]" name="[FIELD_NAME]" data-initial-preview="{\$data.[FIELD_NAME]|default=''}" placeholder="请上传[FORM_NAME]" type="file" class="form-control field-file" >
     </div>
 </div>
@@ -146,7 +146,7 @@ EOF;
         showUpload:false,
         showRemove: false,
         allowedFileExtensions: ['jpg', 'png', 'gif','bmp','svg','jpeg','mp4','doc','docx','pdf','xls','xlsx','ppt','pptx','txt'],
-        maxFileSize:10240
+        maxFileSize:102400
     });
 </script>\n
 EOF;
@@ -182,7 +182,7 @@ EOF;
     public $imageHtml = <<<EOF
     <div class="form-group">
         <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-        <div class="col-sm-10 col-md-4"> 
+        <div class="col-sm-10 col-md-4">
             <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="[FIELD_CONTENT]" type="file" class="form-control field-image" >
         </div>
     </div>
@@ -196,7 +196,7 @@ EOF;
         showUpload:false,
         showRemove: false,
         allowedFileTypes:['image'],
-        maxFileSize:10240,
+        maxFileSize:102400,
     });
     </script>\n
 EOF;
@@ -213,7 +213,7 @@ EOF;
 
 
     public $ampHtml = <<<EOF
-    
+
 <div class="form-group">
     <label class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-8 ">
@@ -223,7 +223,7 @@ EOF;
         <input name="[FIELD_NAME_LAT]" hidden id="[FIELD_NAME_LAT]" value="{\$data.[FIELD_NAME_LAT]|default='[FIELD_DEFAULT_LAT]'}" >
     </div>
 </div>
-    
+
 <script>
     AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
         var map = new AMap.Map('map-container', {
@@ -244,11 +244,11 @@ EOF;
         positionPicker.on('fail', function(positionResult) {
             console.log(positionResult);
         });
-        positionPicker.start( 
+        positionPicker.start(
             {if isset(\$data)}
             new AMap.LngLat({\$data.[FIELD_NAME_LNG]}, {\$data.[FIELD_NAME_LAT]})
             {/if}
-            ); 
+            );
         map.panBy(0, 1);
         map.addControl(new AMap.ToolBar({
             liteStyle: true
@@ -271,7 +271,7 @@ EOF;
     public $multiFileHtml = <<<EOF
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-    <div class="col-sm-8"> 
+    <div class="col-sm-8">
         <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" type="file" class="form-control field-multi-file" >
     </div>
 </div>
@@ -279,7 +279,7 @@ EOF;
     $('#[FIELD_NAME]').fileinput({
         //theme: 'fas',
         language: 'zh',
-    
+
         browseLabel: '浏览',
         initialPreviewAsData: false,
         initialPreviewShowDelete:false,
@@ -291,7 +291,7 @@ EOF;
         initialPreview:{\$data->getData('[FIELD_NAME]')|raw},
         {/if}
         //默认限制10M
-        maxFileSize:10240
+        maxFileSize:102400
     });
 </script>\n
 EOF;
@@ -301,7 +301,7 @@ EOF;
 
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-    <div class="col-sm-10 col-md-4"> 
+    <div class="col-sm-10 col-md-4">
         <input id="[FIELD_NAME]" name="[FIELD_NAME][]"  placeholder="请上传[FORM_NAME]" multiple="multiple" type="file" class="form-control field-multi-image" >
     </div>
 </div>
@@ -319,7 +319,7 @@ $(function() {
         showRemove: false,
         allowedFileTypes:['image'],
         //默认限制10M
-        maxFileSize:10240,
+        maxFileSize:102400,
         {if isset(\$data)}
         initialPreview:{\$data->getData('[FIELD_NAME]')|raw},
         {/if}
@@ -333,7 +333,7 @@ EOF;
 <div class="form-group">
     <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
     <div class="col-sm-10 col-md-4">
-       
+
         <select name="[FIELD_NAME][]" id="[FIELD_NAME]" data-placeholder="请选择[FORM_NAME]" class="form-control field-multi-select" multiple="multiple">
             <option value=""></option>
         </select>

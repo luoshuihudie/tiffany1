@@ -204,6 +204,20 @@ class AboutService extends AdminBaseService
     }
 
     /**
+     * 编辑菜单
+     *
+     * @param $id
+     * @return array
+     * Author: Stephen
+     * Date: 2020/7/27 17:06:00
+     */
+    public function info()
+    {
+        $id = $this->request->input('id');
+        return $this->about->findById($id);
+    }
+
+    /**
      * 更新菜单
      *
      * Author: Stephen

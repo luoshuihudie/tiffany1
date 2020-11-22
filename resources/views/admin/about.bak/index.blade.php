@@ -65,10 +65,10 @@
                                        placeholder="全选/取消">
                             </th>
                             <th>ID</th>
-                            <th>标题</th>
                             <th>简介</th>
-                            <th>管理人员标题</th>
+                            <th>标题</th>
                             <th>管理人员简介</th>
+                            <th>管理人员标题</th>
                             <th>是否显示</th>
                             <th>创建时间</th>
                             <th>更新时间</th>
@@ -85,11 +85,11 @@
                                        placeholder="选择/取消">
                             </td>
                             <td>{{$item['id']}}</td>
-                            <td>{{$item['title']}}</td>
                             <td>{{$item['content']}}</td>
-                            <td>{{$item['manager_title']}}</td>
+                            <td>{{$item['title']}}</td>
                             <td>{{$item['manager_content']}}</td>
 {{--                            <td><img src="{{$item['img']}}" alt="{{$item['title']}}" width="10%"/> </td>--}}
+                            <td>{{$item['manager_title']}}</td>
                             <td>{{$item['is_show'] == 1 ? '是' : '否'}}</td>
                             <td>{{$item['create_time']}}</td>
                             <td>{{$item['update_time']}}</td>

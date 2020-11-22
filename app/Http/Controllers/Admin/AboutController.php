@@ -115,6 +115,17 @@ class AboutController extends BaseController
      * Author: Stephen
      * Date: 2020/7/24 16:16:12
      */
+    public function info()
+    {
+        return $this->ajaxSuccess($this->aboutService->info());
+    }
+
+    /**
+     * 删除设置
+     *
+     * Author: Stephen
+     * Date: 2020/7/24 16:16:12
+     */
     public function del()
     {
         return $this->aboutService->del();

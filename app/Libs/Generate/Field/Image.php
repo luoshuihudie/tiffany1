@@ -12,7 +12,7 @@ class Image extends Field
     public static $html = <<<EOF
     <div class="form-group">
         <label for="[FIELD_NAME]" class="col-sm-2 control-label">[FORM_NAME]</label>
-        <div class="col-sm-10 col-md-4"> 
+        <div class="col-sm-10 col-md-4">
             <input id="[FIELD_NAME]" name="[FIELD_NAME]"  placeholder="请上传[FORM_NAME]" data-initial-preview="{{isset(\$data['[FIELD_NAME]']) ? \$data['[FIELD_NAME]'] : ''}}" type="file" class="form-control field-image" >
         </div>
     </div>
@@ -26,7 +26,7 @@ class Image extends Field
         showUpload:false,
         showRemove: false,
         allowedFileTypes:['image'],
-        maxFileSize:10240,
+        maxFileSize:102400,
     });
     </script>\n
 EOF;

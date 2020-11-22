@@ -31,7 +31,7 @@ $(function() {
         showRemove: false,
         allowedFileTypes:['image'],
         //默认限制10M
-        maxFileSize:10240,
+        maxFileSize:102400,
         @if(isset(\$data))
         initialPreview:{\$data->getData('[FIELD_NAME]')|raw},
         @endif

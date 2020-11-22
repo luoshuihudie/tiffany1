@@ -52,7 +52,7 @@
                                 showUpload: false,
                                 showRemove: false,
                                 allowedFileTypes: ['image'],
-                                maxFileSize: 10240,
+                                maxFileSize: 102400,
                             });
                         </script>
                         <div class="form-group">

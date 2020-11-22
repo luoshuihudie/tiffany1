@@ -19,14 +19,7 @@
                 <form id="dataForm" class="form-horizontal dataForm" action="{{route('admin.about.create')}}" method="post"
                       enctype="multipart/form-data">
                     <!-- 表单字段区域 -->
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="content" class="col-sm-2 control-label">简介</label>
-                            <div class="col-sm-10 col-md-4">
-                                <input id="content" name="title" value="{{isset($data['content']) ? $data['content'] : ''}}" placeholder="请输入简介"
-                                       type="text" class="form-control field-text">
-                            </div>
-                        </div>
+		            <div class="box-body">
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">标题</label>
                             <div class="col-sm-10 col-md-4">
@@ -35,17 +28,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manager_content" class="col-sm-2 control-label">管理人员简介</label>
+                            <label for="content" class="col-sm-2 control-label">简介</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="manager_content" name="title" value="{{isset($data['manager_content']) ? $data['manager_content'] : ''}}" placeholder="请输入管理人员标题"
+                                <textarea id="content" name="content" cols="40" value="{{isset($data['content']) ? $data['content'] : ''}}" placeholder="请输入简介"
+                                       type="textarea" class="form-control field-text">{{isset($data['content']) ? $data['content'] : ''}}</textarea>
+                            </div>
+			        </div>
+                        <div class="form-group">
+                            <label for="manager_title" class="col-sm-2 control-label">管理人员标题</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="manager_title" name="manager_title" value="{{isset($data['manager_title']) ? $data['manager_title'] : ''}}" placeholder="请输入管理人员标题"
                                        type="text" class="form-control field-text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="manager_title" class="col-sm-2 control-label">管理人员标题</label>
+                            <label for="manager_content" class="col-sm-2 control-label">管理人员简介</label>
                             <div class="col-sm-10 col-md-4">
-                                <input id="manager_title" name="title" value="{{isset($data['manager_title']) ? $data['manager_title'] : ''}}" placeholder="请输入管理人员标题"
-                                       type="text" class="form-control field-text">
+                                <textarea id="manager_content" name="manager_content" value="{{isset($data['manager_content']) ? $data['manager_content'] : ''}}" placeholder="请输入管理人员简介"
+                                       type="text" class="form-control field-text">{{isset($data['manager_content']) ? $data['manager_content'] : ''}}</textarea>
                             </div>
                         </div>
 
